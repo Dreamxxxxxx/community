@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <form id="dataFrm" >
+<!--        private Long parentId;-->
+<!--        private String content;-->
+<!--        private Integer type;-->
+        评论id:<input id="parentId" type="text" name="parentId"><br>
+        内容:<input id="content" type="text" name="content"><br>
+        type:<input id="type"  type="text" name="type"><br>
+        <input type="button" id="submitBtn" value="提交">
+
+    </form>
+</head>
+<body>
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        $("#submitBtn").click(function () {
+            $.post("/comment",$("#dataFrm").serialize(),function (res) {
+                console.log(res.msg);
+            })
+
+            // var data={parentId:$("#parentId").val(), content:$("#content").val(), type:$("#type").val()};
+            // $.ajax({
+            //     url:"/comment",
+            //     type:"POST",
+            //     contentType:"application/json",
+            //     data:JSON.stringify(data),
+            //     success:function (res) {
+            //         console.log(res)
+            //     }
+            // })
+        });
+    })
+</script>
+</body>
+</html>
