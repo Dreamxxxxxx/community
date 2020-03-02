@@ -2,6 +2,8 @@ package life.maijiang.community.service;
 
 import life.maijiang.community.dto.PaginationDTO;
 import life.maijiang.community.dto.QuestionDTO;
+import life.maijiang.community.exception.CustomizeErrorCode;
+import life.maijiang.community.exception.CustomizeException;
 import life.maijiang.community.mapper.QuestionMapper;
 import life.maijiang.community.mapper.UserMapper;
 import life.maijiang.community.model.Question;
@@ -53,6 +55,9 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question=questionMapper.getById(id);
+        if(question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO=new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.findById(question.getCreator());
@@ -69,7 +74,10 @@ public class QuestionService {
         }else{
             //更新
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.update(question);
+            Integer update = questionMapper.update(question);
+            if(update != 1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }
