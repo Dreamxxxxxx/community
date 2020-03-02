@@ -80,4 +80,8 @@ public class QuestionService {
             }
         }
     }
+
+    public void incView(Integer id) {
+        questionMapper.updateViewCount(id);
+    }
 }
