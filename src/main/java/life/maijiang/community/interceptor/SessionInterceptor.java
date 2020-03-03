@@ -27,7 +27,6 @@ public class SessionInterceptor implements HandlerInterceptor {
                     User user = userMapper.findByToken(token);
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
-                        System.out.println("11111111111111111"+user);
                     }
 
 //                    User user=null;

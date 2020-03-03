@@ -76,4 +76,18 @@ public class Comment {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", type=" + type +
+                ", commentator=" + commentator +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                ", likeCount=" + likeCount +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
