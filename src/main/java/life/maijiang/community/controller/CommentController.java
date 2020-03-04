@@ -1,7 +1,9 @@
 package life.maijiang.community.controller;
 
 import life.maijiang.community.dto.CommentCreateDTO;
+import life.maijiang.community.dto.CommentDTO;
 import life.maijiang.community.dto.ResultDTO;
+import life.maijiang.community.enums.CommentTypeEnum;
 import life.maijiang.community.exception.CustomizeErrorCode;
 import life.maijiang.community.model.Comment;
 import life.maijiang.community.model.User;
@@ -9,12 +11,10 @@ import life.maijiang.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -46,5 +46,12 @@ public class CommentController {
        // System.out.println("******"+comment.toString());
         commentService.insert(comment);
         return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id")Integer id){
+        List<CommentDTO> commentDTOS = commentService.listByQuestionId(id, CommentTypeEnum.COMMENT.getType());
+        return ResultDTO.okOf(commentDTOS);
     }
 }

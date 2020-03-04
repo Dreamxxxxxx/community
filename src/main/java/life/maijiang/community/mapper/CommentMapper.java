@@ -14,11 +14,11 @@ public interface CommentMapper {
     void insert(Comment comment);
 
     @Select("select * from comment where parent_id = #{parentId}")
-    Comment selectById(@Param("parentId") Long parentId);
+    List<Comment> selectById(@Param("parentId") Long parentId);
 
     @Select("select * from comment where parent_id = #{parentId} and type = 1")
     List<Comment> selectIdType(@Param("parentId") Integer parentId);
 
-    @Select("select * from comment where parent_id = #{parentId} and type = 1 order by gmt_create desc")
-    List<Comment> selectIdTypeByDesc(@Param("parentId") Integer parentId);
+    @Select("select * from comment where parent_id = #{parentId} and type = #{type} order by gmt_create desc")
+    List<Comment> selectIdTypeByDesc(@Param("parentId") Integer parentId,@Param("type") Integer type);
 }
