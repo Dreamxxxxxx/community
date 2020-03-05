@@ -18,6 +18,16 @@
                 <h2><span th:text="${sectionName}"></span></h2>
                 <hr>
 
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'replies'}">
+                    <div class="media" th:each="notification : ${notificationDTOS}">
+                        <div class="media-body">
+                            <p class="media-heading">
+                                <span th:text="${notification.name+' '+notification.action+' '}"></span>
+                                <a th:href="@{'/question/'+${notification.id}}" th:text="${notification.content}"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
@@ -25,7 +35,7 @@
                     <a href="/profile/questions" th:class="${section == 'questions'}?'active list-group-item' : 'list-group-item'">我的问题</a>
                     <a href="/profile/replies" th:class="${section == 'replies'}?'active list-group-item' : 'list-group-item'">
                         最新回复
-                        <span class="badge">14</span>
+<!--                        <span class="badge">14</span>-->
                     </a>
                 </div>
             </div>

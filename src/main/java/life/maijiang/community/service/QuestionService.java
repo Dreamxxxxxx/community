@@ -11,9 +11,11 @@ import life.maijiang.community.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -83,5 +85,20 @@ public class QuestionService {
 
     public void incView(Integer id) {
         questionMapper.updateViewCount(id);
+    }
+
+    public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
+        if (StringUtils.isEmpty(questionDTO.getTag())) {
+            return new ArrayList<>();
+        }
+        String replaceStr = StringUtils.replace(questionDTO.getTag(), ",", "|");
+        Integer id=questionDTO.getId();
+        List<Question> questions=questionMapper.selectRelated(id,replaceStr);
+        List<QuestionDTO> questionDtos = questions.stream().map(question1 -> {
+            QuestionDTO questionDTO1 = new QuestionDTO();
+            BeanUtils.copyProperties(question1, questionDTO1);
+            return questionDTO1;
+        }).collect(Collectors.toList());
+        return questionDtos;
     }
 }

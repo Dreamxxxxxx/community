@@ -85,3 +85,23 @@ body{
 .menu .icon:hover{
     color: #499ef3;
 }
+
+.question-tag{
+    margin-right: 5px;
+}
+
+.question-rated{
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 0;
+    list-style: none;
+    padding-left: 0;
+}
+
+.publish-tag{
+    margin-top:10px;
+}
+
+.tag-one{
+    padding-left: 10px;
+}
